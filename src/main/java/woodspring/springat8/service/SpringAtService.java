@@ -7,6 +7,8 @@ public interface SpringAtService {
 	String printNode(int index);
 	String printInOrder();
 	String printReverse();
+	String testBinaryTree();
+	String testBinaryTree2Merge(int base);
 	String convertBinaryTree2DDList();
 	String mergeTwoBinaryTree(int treeA, int treeB);
 }

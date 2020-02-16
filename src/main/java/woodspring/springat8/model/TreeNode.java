@@ -24,14 +24,14 @@ public class TreeNode<T extends Comparable<T>> {
 			return new TreeNode<T>(theValue);
 		}
 		int compResult = currNode.getValue().compareTo( theValue); 
-		logger.info("curr value:"+ ((currNode == null) ? "null" : currNode.getValue().toString())+" theValue:"+ theValue+" compare:"+compResult);
+		//logger.info("curr value:"+ ((currNode == null) ? "null" : currNode.getValue().toString())+" theValue:"+ theValue+" compare:"+compResult);
 		
 		if (compResult < 0) {
 			currNode.setRight( addNode( currNode.getRight(), theValue));
 		} else if ( compResult > 0) {
 			currNode.setLeft( addNode( currNode.getLeft(), theValue));
 		} else {
-			logger.info("DUPLICATED value :"+ theValue.toString());
+			//logger.info("DUPLICATED value :"+ theValue.toString());
 		}
 		return currNode;
 	}
@@ -39,7 +39,7 @@ public class TreeNode<T extends Comparable<T>> {
 	public TreeNode<T> find(TreeNode<T> currNode, T theKey) {
 		if ( currNode == null) return null;
 		int compResult = currNode.getValue().compareTo( theKey);
-		logger.info(" find: currNode value:["+ currNode.getValue() +"] theKey:["+ theKey+" compResultL" + compResult);
+		//logger.info(" find: currNode value:["+ currNode.getValue() +"] theKey:["+ theKey+" compResultL" + compResult);
 		if ( compResult >0 ) {
 			return currNode.find(currNode.getLeft(), theKey);
 		} else if ( compResult <0) {

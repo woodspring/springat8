@@ -49,6 +49,21 @@ public class SpringAtController {
 		logger.info("AtController, END of inOrderService-----"+ retStr );
 		return retStr;
 	}
+	@GetMapping("/AT/TEST") 
+	public String testService() {
+		logger.info("AtController, testService-----");
+		String retStr = serviceImpl.testBinaryTree();
+		logger.info("AtController, END of testService-----"+ retStr );
+		return retStr;
+	}
+	@GetMapping("/AT/TEST2/{base}") 
+	public String binaryTreeMergeReverseService(@PathVariable(value = "base") String base) {
+		logger.info("AtController, binaryTreeMergeReverseService-----");
+		int baseInt = Integer.valueOf( base).intValue();
+		String retStr = serviceImpl.testBinaryTree2Merge(baseInt);
+		logger.info("AtController, END of binaryTreeMergeReverseService-----"); //+ retStr );
+		return retStr;
+	}
 	@GetMapping("/AT/ITR/{number}") 
 	public String iteratorService(@PathVariable(value="number") String number) {
 		logger.info("AtController, iteratorService-----"+ number );
