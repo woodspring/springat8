@@ -6,8 +6,9 @@ import woodspring.springat8.model.TreeNode;
 
 public class IteratorBTree<T extends Comparable<T>> {
 	private Stack<TreeNode<T>> stack = new Stack<>();
-	
+	private TreeNode<T> head;
 	public IteratorBTree(TreeNode head) {
+		this.head = head;
 		push(head);
 	}
 	
@@ -26,6 +27,11 @@ public class IteratorBTree<T extends Comparable<T>> {
 		TreeNode<T> tNode = stack.pop();
 		push(tNode.getRight());
 		return tNode;
+	}
+	public boolean reset() {
+		stack.clear();
+		stack.push( head);
+		return true;
 	}
 
 }
