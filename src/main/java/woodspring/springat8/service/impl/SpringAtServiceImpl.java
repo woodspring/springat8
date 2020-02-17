@@ -222,8 +222,9 @@ public class SpringAtServiceImpl implements SpringAtService {
 		long end2Time = System.nanoTime();
 
 		strBuf.append("]");
+		StringBuffer strBuf2 = new StringBuffer();
+		//logger.info("result:["+strBuf.toString()+"");
 		
-		logger.info("result:["+strBuf.toString()+"");
 		long time1 = end1Time -start1Time; String t1Str = Long.valueOf( time1).toString();
 		long time2 = end2Time -start2Time; String t2Str = Long.valueOf( time2).toString();
 		logger.info("first  start:"+ start1Time+ "  end:"+ end1Time+ " use:"+time1);
@@ -233,6 +234,10 @@ public class SpringAtServiceImpl implements SpringAtService {
 		//System.out.println("delta:["+ delta+"] improve :" + percent);
 
 		logger.info("base:"+ base+" two after merge:"+size+"\n  diff:"+ (time2 - time1)+" delta:["+ delta+ "] improve %:" + percent* 100);
+		strBuf2.append("first  start:"+ start1Time+ "  end:"+ end1Time+ " use:"+time1)
+		.append("\n second start:"+ start2Time+ "  end:"+ end2Time+ " use:"+time2)
+		.append("\n base:"+ base+" two after merge:"+size+"\n  diff:"+ (time2 - time1)+" delta:["+ delta+ "] improve %:" + percent* 100);
+
 		return strBuf.toString();
 	}
 	
