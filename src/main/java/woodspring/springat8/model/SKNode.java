@@ -20,7 +20,12 @@ public class SKNode<K extends Comparable<K>, V> {
 	}
 	
 	public void insert(K theKey, V theValue, int aLevel, SKNode<K, V> parent) {
-
+if ( level >0) {		
+logger.info(" key:"+key.toString()+" value:"+value.toString()+" level:"+ this.level);
+logger.info(" theKey:"+ theKey.toString()+" theValue:"+theValue.toString()+" aLevel:"+aLevel);
+} else {
+	logger.info(" ----------------- level 0 start,  key:"+((key == null) ? " NULL" : key.toString()));
+}
 		if (!(this.level > aLevel) && (next == null || next.getKey().compareTo( theKey) > 0)) {
 			SKNode<K,V> newNode = new SKNode<K, V>( theKey, theValue, aLevel);
 			
@@ -42,26 +47,39 @@ public class SKNode<K extends Comparable<K>, V> {
 				down.insert( theKey,  theValue,  aLevel,  parent);			
 			}
 			
+		} else if ( next != null && next.getKey().compareTo( theKey) < 0) {
+			next.insert(theKey, theValue, aLevel, parent);
+		} else if ( next != null && next.getKey().compareTo( theKey) == 0) {
+			logger.info(" key "+ theKey.toString()+" DUPLICATE!, overwrite value");
+//			next.setValue( theValue);
+		} else if ( down != null) {
+			down.insert(theKey, theValue, aLevel, parent);
 		} else {
-			if ( next == null) {
-				if ( down!= null) {
-					down.insert(theKey,  theValue,  aLevel,  parent);
-				} else {
-					logger.info(" ERROR here for theKey:"+ theKey.toString()+" theValue:"+ theValue.toString());
-				}
-			} else {
-				int compResult = next.getKey().compareTo( theKey);
-				logger.info(" key:"+ theKey.toString()+" value:"+ value.toString()+ " level:"+ aLevel+ " compResult:"+compResult);
-				if ( compResult <0) {
-					next.insert( theKey,  theValue,  aLevel,  parent);
-				} else {
-					//
-					logger.info(" key "+ theKey.toString()+" DUPLICATE!, overwrite value");
-					next.setValue( theValue);
-				}
-				
-			}
+			logger.info("HERE COULD BE A PROBLEM for key "+ theKey.toString()+"  down is NULL VAUE:"+ theValue.toString()+" theLevel:"+ level +" current key:"+ key.toString()+" Value:"+ value.toString()); 
 		}
+			
+			
+			
+//		{
+//			if ( next == null) {
+//				if ( down!= null) {
+//					down.insert(theKey,  theValue,  aLevel,  parent);
+//				} else {
+//					logger.info(" ERROR here for theKey:"+ theKey.toString()+" theValue:"+ theValue.toString());
+//				}
+//			} else {
+//				int compResult = next.getKey().compareTo( theKey);
+//				logger.info(" key:"+ theKey.toString()+" value:"+ value.toString()+ " level:"+ aLevel+ " compResult:"+compResult);
+//				if ( compResult <0) {
+//					next.insert( theKey,  theValue,  aLevel,  parent);
+//				} else {
+//					//
+//					logger.info(" key "+ theKey.toString()+" DUPLICATE!, overwrite value");
+//					next.setValue( theValue);
+//				}
+//				
+//			}
+//		}
 
 		
 	}
