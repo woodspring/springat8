@@ -16,6 +16,9 @@ import woodspring.springat8.model.AtCommon;
 import woodspring.springat8.model.TreeNode;
 import woodspring.springat8.service.SpringAtService;
 import woodspring.springat8.components.RevIterator;
+import woodspring.springat8.components.SkipList;
+import woodspring.springat8.model.NodeValue;
+import woodspring.springat8.model.SKNode;
 
 @Service
 public class SpringAtServiceImpl implements SpringAtService {
@@ -24,7 +27,11 @@ public class SpringAtServiceImpl implements SpringAtService {
 	@Autowired
 	BinaryTree<Integer> binaryTree;
 	
+	@Autowired
+	SkipList<Integer, NodeValue> skipList;
+	
 	protected Random random = new Random(); //AtCommon.AT_NUMBER);
+	protected Random randomSK = new Random(AtCommon.AT_SK_NUMBER);
 
 	@Override
 	public String runBinaryTreeService(int number) {
@@ -249,6 +256,51 @@ public class SpringAtServiceImpl implements SpringAtService {
 			retList.add( nextInt);
 		}
 		return retList;
+	}
+
+	@Override
+	public String addNodeIntoSkipList(Integer theKey, NodeValue theValue) {
+		List<NodeValue> valueList = generateNodeValue( theKey.intValue());
+		List<Integer> keyList =new  ArrayList<Integer>();
+		keyList.add(30); keyList.add(20);keyList.add(50);keyList.add(10);keyList.add(45);
+		keyList.add(130); keyList.add(2);keyList.add(32);keyList.add(48);keyList.add(90);
+
+		for (int ind=0 ; ind < theKey; ind++) {
+			skipList.insert(keyList.get(ind),  valueList.get(ind));
+		}
+
+		//valueList.stream().forEach( value -> skipList.insert(randomSK.nextInt(AtCommon.AT_SK_NUMBER), value));
+		StringBuffer strBuf = new StringBuffer();
+		strBuf.append( skipList.toString());
+		return strBuf.toString();
+	}
+
+	@Override
+	public String findNodeFromSkipList(Integer theKey) {
+		StringBuffer strBuf = new StringBuffer();
+		NodeValue findNode = skipList.find(theKey);
+		
+		return (findNode == null) ? "NULL" : findNode.toString();
+	}
+	
+	@Override
+	public String findNodeByKey(Integer theKey) {
+		StringBuffer strBuf = new StringBuffer();
+		SKNode<Integer, NodeValue> foundNode = skipList.findByKey(theKey);
+		
+		return (foundNode == null) ? "NULL" : foundNode.toString();
+	}
+	private List<NodeValue> generateNodeValue(int item) {
+		List<NodeValue> nodeList = new ArrayList< NodeValue>();
+		String sample = "The Ontario government said they are looking into complaints that the new blue licence plates are unreadable in certain conditions." + 
+				 "A Twitter account that appears to belong to Kingston police officer Sgt. Steve Koopman posted a picture of a car parked outside a McDonald’s, suggesting that the new plates can be hard to read.";
+		String[] sampleData = sample.split(" ");
+		for (int ind =0; ind< (2*item); ind +=2) {
+			NodeValue aValue = new NodeValue(sampleData[ind], sampleData[ind+1], (random.nextBoolean() ? "ACTIVE" : "DISABLED"));
+			nodeList.add( aValue);
+		}
+		
+		return nodeList;
 	}
 
 

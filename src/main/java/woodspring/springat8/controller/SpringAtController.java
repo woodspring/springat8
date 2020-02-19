@@ -91,4 +91,28 @@ public class SpringAtController {
 		logger.info("AtController, END of mergerBTreeService-----"+ retStr );
 		return retStr;
 	}
+	
+	@GetMapping("/AT/SK/{number}") 
+	public String addNodeToSkipList(@PathVariable(value = "number") int nodeNum) {
+		logger.info("AtController, addNodeToSkipList-----" + nodeNum);
+		String retStr = serviceImpl.addNodeIntoSkipList( nodeNum, null);
+		logger.info("AtController, END of addNodeToSkipList-----"+ retStr );
+		return retStr;
+	}
+	
+	@GetMapping("/AT/SK/KEY/{number}") 
+	public String findNodeFromSkipList(@PathVariable(value = "key") int key) {
+		logger.info("AtController, findNodeFromSkipList-----" + key);
+		String retStr = serviceImpl.findNodeFromSkipList(key);
+		logger.info("AtController, END of findNodeFromSkipList-----"+ retStr );
+		return retStr;
+	}
+	
+	@GetMapping("/AT/SK/BYKEY/{number}") 
+	public String findNodeByKey(@PathVariable(value = "key") int key) {
+		logger.info("AtController, findNodeByKey-----" + key);
+		String retStr = serviceImpl.findNodeByKey(key);
+		logger.info("AtController, END of findNodeByKey-----"+ retStr );
+		return retStr;
+	}
 }
